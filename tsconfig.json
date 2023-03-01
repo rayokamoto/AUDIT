@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES2016",
+        "module": "ES2020",
+        "allowJs": true,
+        "outDir": "extension",
+        "strict": true
+    },
+    "include": [
+        "src"
+    ]
+}

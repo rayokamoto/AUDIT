@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Uni CalSync",
+  "version": "0.0.1",
+  "description": "Automatically generate a .ical file for your uni timetable",
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_icon": "icons/icon.png",
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.adelaide.edu.au/*"],
+      "js": ["main.js"]
+    }
+  ],
+  "use_dynamic_url": true
+}
