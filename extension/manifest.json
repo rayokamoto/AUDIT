@@ -12,9 +12,18 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.adelaide.edu.au/*"],
-      "js": ["main.js"]
+      "matches": [
+        "*://*.adelaide.edu.au/*"
+      ],
+      "js": [
+        "main.js"
+      ]
     }
   ],
-  "use_dynamic_url": true
+  "web_accessible_resources": [
+    {
+      "resources": ["main.js"],
+      "matches": ["*://*.adelaide.edu.au/*"]
+    }
+  ]
 }
