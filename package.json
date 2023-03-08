@@ -1,4 +1,7 @@
 {
   "name": "uni-calsync",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "@types/firefox-webext-browser": "^111.0.0"
+  }
 }

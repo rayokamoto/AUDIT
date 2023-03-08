@@ -20,10 +20,19 @@
       ]
     }
   ],
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking"
+],
   "web_accessible_resources": [
     {
       "resources": ["main.js"],
       "matches": ["*://*.adelaide.edu.au/*"]
     }
-  ]
+  ],
+
+  "background" : {
+    "scripts" : ["main.js"]
+  }
 }
