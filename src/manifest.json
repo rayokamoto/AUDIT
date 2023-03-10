@@ -10,6 +10,12 @@
     "default_icon": "icons/icon.png",
     "default_popup": "index.html"
   },
+
+  "background": {
+    "scripts": [
+      "main.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -22,6 +28,7 @@
   ],
   "permissions": [
     "<all_urls>",
+    "webNavigation",
     "webRequest",
     "webRequestBlocking"
   ],
@@ -34,10 +41,5 @@
         "*://*.adelaide.edu.au/**"
       ]
     }
-  ],
-  "background": {
-    "scripts": [
-      "main.js"
-    ]
-  }
+  ]
 }

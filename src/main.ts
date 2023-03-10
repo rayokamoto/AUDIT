@@ -1,4 +1,3 @@
-import "firefox-webext-browser";
 
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
 let semCode = 4310; // for testing only
@@ -23,13 +22,18 @@ function getTimetable(e: any) {
       "Authorization": token
     }
   })
+  
+  let timetableData;
 
-  console.log(timetable);
+  timetable
+  	.then((res) => res.json())
+  	.then((data) => {timetableData = data})
+	.catch((err) => console.error(err))
 
   if (counter === 1) {
     browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
   }
-  return { requestHeaders: e.requestHeaders, timetable };
+  return { requestHeaders: e.requestHeaders, timetableData };
 }
 
 browser.webRequest.onBeforeSendHeaders.addListener(
