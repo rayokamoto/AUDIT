@@ -14,7 +14,8 @@
   "background": {
     "scripts": [
       "main.js"
-    ]
+    ],
+    "persistent": true
   },
   "content_scripts": [
     {
@@ -27,10 +28,7 @@
     }
   ],
   "permissions": [
-    "<all_urls>",
-    "webNavigation",
-    "webRequest",
-    "webRequestBlocking"
+    "<all_urls>","webRequest","webRequestBlocking","webNavigation"
   ],
   "web_accessible_resources": [
     {
