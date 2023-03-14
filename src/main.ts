@@ -27,8 +27,8 @@ async function getTimetable(e: any) {
 
     timetableData = await res.json();
   } catch (err) {
-    timetableData = err;
     console.error(err);
+    return err;
   }
 
   browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
