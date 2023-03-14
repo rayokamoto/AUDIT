@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Uni CalSync",
   "version": "0.0.1",
-  "description": "Automatically generate a .ical file for your uni timetable",
+  "description": "Automatically generate a .ical/.ics file for your uni timetable",
   "icons": {
     "128": "icons/icon.png"
   },
