@@ -8,20 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
-let semCode = 4310; // for testing only
-let studentID = 1886739; // for testing only
-function getIDandCode(e) {
-    let rawData = e;
-    // todo
-    console.log(rawData);
-}
-function getTimetable(e) {
+const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/*";
+function getIDandCode(url, token) {
     return __awaiter(this, void 0, void 0, function* () {
-        let token = e.requestHeaders.find((data) => data.name === "Authorization").value;
-        let timetableData;
+        let queryMatch = url.match(/\/(\d+)\&/);
+        let ID = queryMatch ? queryMatch[1] : null;
+        let semCode;
         try {
-            const res = yield window.fetch(`https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_LIST/queryx/${studentID},${semCode}&MaxRows=9999`, {
+            const res = yield window.fetch(url, {
                 headers: {
                     "access-control-allow-credentials": "true",
                     "access-control-allow-headers": "accept,authorization,access-control-allow-headers,access-control-allow-origin",
@@ -29,14 +23,42 @@ function getTimetable(e) {
                     "Authorization": token
                 }
             });
+            yield res.json().then(resData => {
+                semCode = resData.data.query.rows[0]["A.STRM"];
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+        return { ID, semCode };
+    });
+}
+function getTimetable(e) {
+    return __awaiter(this, void 0, void 0, function* () {
+        browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
+        let token = e.requestHeaders.find((data) => data.name === "Authorization").value;
+        let timetableData;
+        let ID, semCode;
+        yield getIDandCode(e.url, token).then(data => {
+            ID = data.ID;
+            semCode = data.semCode;
+        });
+        try {
+            const res = yield window.fetch(`https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_LIST/queryx/${ID},${semCode}&MaxRows=9999`, {
+                headers: {
+                    "access-control-allow-credentials": "true",
+                    "access-control-allow-headers": "accept,authorization,access-control-allow-headers,access-control-allow-origin",
+                    "access-control-allow-methods": "GET",
+                    "Authorization": token
+                }
+            });
             timetableData = yield res.json();
         }
         catch (err) {
+            timetableData = err;
             console.error(err);
         }
-        console.log(timetableData);
-        browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
         return timetableData;
     });
 }
-browser.webRequest.onBeforeSendHeaders.addListener(getTimetable, { urls: [targetURL] }, ["blocking", "requestHeaders"]);
+browser.webRequest.onBeforeSendHeaders.addListener(getTimetable, { urls: [targetURL] }, ["requestHeaders"]);
