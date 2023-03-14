@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,8 +7,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+<<<<<<< HEAD
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/*";
 function getIDandCode(url, token) {
+=======
+import "@types/firefox-webext-browser";
+const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
+let semCode = 4310;
+let studentID = 1886739;
+function getIDandCode(e) {
+    let rawData = e;
+    console.log(rawData);
+}
+function getTimetable(e) {
+>>>>>>> 430a1ee95410de818a7a5220e47c5656ed574e35
     return __awaiter(this, void 0, void 0, function* () {
         let queryMatch = url.match(/\/(\d+)\&/);
         let ID = queryMatch ? queryMatch[1] : null;
@@ -57,7 +68,12 @@ function getTimetable(e) {
         catch (err) {
             timetableData = err;
             console.error(err);
+            return err;
         }
+<<<<<<< HEAD
+=======
+        browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
+>>>>>>> 430a1ee95410de818a7a5220e47c5656ed574e35
         return timetableData;
     });
 }

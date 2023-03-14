@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Uni CalSync",
   "version": "0.0.1",
-  "description": "Automatically generate a .ical file for your uni timetable",
+  "description": "Automatically generate a .ical/.ics file for your uni timetable",
   "icons": {
     "128": "icons/icon.png"
   },
@@ -10,12 +10,10 @@
     "default_icon": "icons/icon.png",
     "default_popup": "index.html"
   },
-
   "background": {
     "scripts": [
       "main.js"
-    ],
-    "persistent": true
+    ]
   },
   "content_scripts": [
     {
@@ -28,7 +26,12 @@
     }
   ],
   "permissions": [
-    "<all_urls>","webRequest","webRequestBlocking","webNavigation"
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "web_accessible_resources": [
     {
