@@ -2,6 +2,15 @@
   "name": "uni-calsync",
   "version": "0.0.1",
   "dependencies": {
-    "@types/firefox-webext-browser": "^111.0.0"
+    "ical-generator": "^3.6.1"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^111.0.0",
+    "@types/luxon": "^3.2.0",
+    "@types/node": "^18.14.6",
+    "dayjs": "^1.11.7",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.41",
+    "rrule": "^2.7.2"
   }
 }

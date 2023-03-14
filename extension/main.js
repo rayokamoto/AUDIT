@@ -1,7 +1,7 @@
 import "firefox-webext-browser";
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
-let semCode = 4310; // for testing only
-let studentID = 1886739; // for testing only
+let semCode = 4310;
+let studentID = 1886739;
 let counter = 0;
 function getTimetable(e) {
     counter++;

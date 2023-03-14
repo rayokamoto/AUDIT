@@ -2,11 +2,16 @@
     "compilerOptions": {
         "target": "ES2016",
         "module": "ES2020",
+        "moduleResolution": "node",
         "allowJs": true,
         "outDir": "extension",
-        "strict": true
+        "strict": true,
+        "types": [
+            "node"
+        ],
+        "removeComments": true,
     },
     "include": [
-        "src"
+        "./src"
     ]
 }
