@@ -27,17 +27,36 @@ function createCalEvent(calendar, data) {
         until: endDate,
     };
     calendar.createEvent({
-        "summary": eventSummary,
-        "location": eventLocation,
-        "description": classType,
-        "start": eventStart,
-        "end": eventEnd,
-        "repeating": repeatOptions,
+        summary: eventSummary,
+        location: eventLocation,
+        description: classType,
+        start: eventStart,
+        end: eventEnd,
+        repeating: repeatOptions,
     });
 }
-function createCalendar(name) {
-    let calendar = ical();
-    return calendar.name(name);
+function createCalendar(name, data) {
+    let calendar = ical({ name: name });
+    if (data["success"] !== "success") {
+        console.error("API response was not successful!");
+    }
+    if (data["data"]["queryname="] !== "TIMETABLE_LIST") {
+        console.error("Data is not timetable list, cannot proceed further");
+    }
+    const numRows = data["data"]["query"]["numrows"];
+    const rows = data["data"]["query"]["rows"];
+    for (let i = 0; i < numRows; ++i) {
+        createCalEvent(calendar, rows[i]);
+    }
+    return calendar;
 }
-let testCal = createCalendar("Test Calendar");
+function generateICal(cal) {
+    const blobData = cal.toBlob();
+    const blobURL = URL.createObjectURL(blobData);
+    return blobURL;
+}
+const testData = {
+    "status": "success",
+};
+let testCal = createCalendar("Test Calendar", testData);
 console.log(testCal);

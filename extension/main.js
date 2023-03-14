@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,12 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import "@types/firefox-webext-browser";
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
-let semCode = 4310; // for testing only
-let studentID = 1886739; // for testing only
+let semCode = 4310;
+let studentID = 1886739;
 function getIDandCode(e) {
     let rawData = e;
-    // todo
     console.log(rawData);
 }
 function getTimetable(e) {
@@ -32,9 +31,9 @@ function getTimetable(e) {
             timetableData = yield res.json();
         }
         catch (err) {
+            timetableData = err;
             console.error(err);
         }
-        console.log(timetableData);
         browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
         return timetableData;
     });
