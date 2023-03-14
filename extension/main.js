@@ -31,8 +31,8 @@ function getTimetable(e) {
             timetableData = yield res.json();
         }
         catch (err) {
-            timetableData = err;
             console.error(err);
+            return err;
         }
         browser.webRequest.onBeforeSendHeaders.removeListener(getTimetable);
         return timetableData;

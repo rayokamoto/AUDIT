@@ -1,0 +1,15 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+body {
+    max-width: 25em;
+}

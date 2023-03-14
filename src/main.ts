@@ -1,15 +1,16 @@
 import "@types/firefox-webext-browser";
 
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
+
+// TODO: Remove test data
 let semCode = 4310; // for testing only
 let studentID = 1886739; // for testing only
 
 function getIDandCode(e: any) {
   let rawData = e;
-  // todo
+  // TODO: UNIMPLEMENTED
   console.log(rawData);
 }
-
 
 async function getTimetable(e: any) {
   let token = e.requestHeaders.find((data: any) => data.name === "Authorization").value;
