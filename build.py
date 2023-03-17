@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-# NOTE: Use a JS-specific build system later.
-# This script is only a temporary solution.
-
 import subprocess
 import shutil
 

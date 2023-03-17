@@ -1,5 +1,3 @@
-import "@types/firefox-webext-browser";
-
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WEEKLY/queryx/*";
 
 // TODO: Remove test data
