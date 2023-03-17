@@ -35,7 +35,7 @@ function createCalEvent(calendar, data) {
         repeating: repeatOptions,
     });
 }
-function createCalendar(name, data) {
+export function createCalendar(name, data) {
     let calendar = ical({ name: name });
     if (data["success"] !== "success") {
         console.error("API response was not successful!");
