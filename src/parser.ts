@@ -62,7 +62,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   });
 }
 
-function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
+export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
   let calendar = ical({ name: name });
 
   if (data["success"] !== "success") {
