@@ -9,7 +9,7 @@
   "action": {
     "default_icon": "icons/icon.png",
     "default_title": "CalSync",
-    "default_popup": "index.html"  
+    "default_popup": "popup.html"  
   },
   "background": {
     "scripts": [
@@ -35,9 +35,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "main.js",
-	"parser.js",
-	"utils.js"
+        "main.js"
       ],
       "matches": [
         "*://*.adelaide.edu.au/**"
