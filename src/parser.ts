@@ -43,10 +43,10 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
 
 
   // use this to calculate repeating times
-  let startDate = new Date(Date.parse(startTimeData));
-  let endDate = new Date(Date.parse(endTimeData));
+  let startDate = new Date(Date.parse(startDateData));
+  let endDate = new Date(Date.parse(endDateData));
   let dateDelta = endDate.getTime() - startDate.getTime();
-
+  console.log(B_SUBJECT,eventStart,startDateData,startTime);
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
     until: endDate,
@@ -64,13 +64,13 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
 
 export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
   let calendar = ical({ name: name });
-
-  if (data["success"] !== "success") {
+  console.log(data);
+  if (data["status"] !== "success") {
     console.error("API response was not successful!");
     // TODO: return this as error or raise exception
   }
 
-  if (data["data"]["queryname="] !== "TIMETABLE_LIST") {
+  if (data["data"]["query"]["queryname="] !== "TIMETABLE_LIST") {
     console.error("Data is not timetable list, cannot proceed further");
     // TODO: return as error or raise exception
   }
@@ -86,16 +86,10 @@ export function createCalendar(name: string, data: { [x: string]: any; }): ICalC
 
 
 // TODO: there needs to be a function to deal with the file to download, etc.
-function generateICal(cal: ICalCalendar): string {
+export function generateICal(cal: ICalCalendar): string {
   const blobData = cal.toBlob();
   const blobURL = URL.createObjectURL(blobData);
   return blobURL;
 }
 
 
-// TESTING PURPOSES ONLY
-const testData = {
-  "status": "success",
-}
-let testCal = createCalendar("Test Calendar", testData);
-console.log(testCal);
