@@ -46,7 +46,6 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   let startDate = new Date(Date.parse(startDateData));
   let endDate = new Date(Date.parse(endDateData));
   let dateDelta = endDate.getTime() - startDate.getTime();
-  console.log(B_SUBJECT,eventStart,startDateData,startTime);
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
     until: endDate,
@@ -64,7 +63,6 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
 
 export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
   let calendar = ical({ name: name });
-  console.log(data);
   if (data["status"] !== "success") {
     console.error("API response was not successful!");
     // TODO: return this as error or raise exception
