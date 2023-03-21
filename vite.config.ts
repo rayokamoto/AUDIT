@@ -7,9 +7,12 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: {
-                index: new URL('./popup.html', import.meta.url).pathname,
-                background: new URL('./background.html', import.meta.url).pathname,
-            }
+                index: new URL('./src/main.ts', import.meta.url).pathname,
+            },
+			output : {
+				entryFileNames: 'main.js'
+			}
+			
         }
     },
 })
