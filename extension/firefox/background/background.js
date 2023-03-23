@@ -1,4 +1,3 @@
-// This background script uses onBeforeSendHeaders to grab the auth token from the targetURL and use that to get the timetable data for the entire semester 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,6 +34,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+// This background script uses onBeforeSendHeaders to grab the auth token from the targetURL and use that to get the timetable data for the entire semester 
+// For Firefox only
 var targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/*";
 function getIDandCode(url, token) {
     return __awaiter(this, void 0, void 0, function () {
@@ -109,6 +110,7 @@ function getTimetable(e) {
                     console.error(err_1);
                     return [2 /*return*/, err_1];
                 case 6:
+                    console.log(timetableData);
                     browser.storage.local.set(timetableData);
                     return [2 /*return*/, timetableData];
             }
