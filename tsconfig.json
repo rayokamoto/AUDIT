@@ -8,9 +8,10 @@
         "strict": true,
         "types": [
             "node",
-            "@types/firefox-webext-browser"
+            "@types/firefox-webext-browser",
+			"@types/chrome"
         ],
-        "removeComments": true,
+        "removeComments": true
     },
     "include": [
         "src"
