@@ -89,5 +89,3 @@ export function generateICal(cal: ICalCalendar): string {
   const blobURL = URL.createObjectURL(blobData);
   return blobURL;
 }
-
-

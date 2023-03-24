@@ -1,18 +1,20 @@
 import { createCalendar, generateICal } from "../parser/parser";
+import { downloadFileName } from "../common";
 
-console.info("firefox main.js initialized")
+console.info("Firefox main.js initialized");
 
-const button = document.getElementById("btn")!;
+const button = document.getElementById("get-ical")!;
 button.onclick = getData;
 
 async function getData() {
+  console.log("get data queried");
   let rawData = {};
   await browser.storage.local.get().then(data => rawData = data);
 
-  let calander = createCalendar("uni", rawData);
-  let ical = generateICal(calander);
+  const calendar = createCalendar("uni", rawData);
+  const iCal = generateICal(calendar);
   const downloadLink = document.createElement('a');
-  downloadLink.href = ical;
-  downloadLink.download = "uni.ical";
+  downloadLink.href = iCal;
+  downloadLink.download = downloadFileName;
   downloadLink.click();
 }

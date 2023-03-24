@@ -9,7 +9,7 @@
         "types": [
             "node",
             "@types/firefox-webext-browser",
-			"@types/chrome"
+            "@types/chrome"
         ],
         "removeComments": true
     },

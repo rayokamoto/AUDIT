@@ -1,8 +1,9 @@
+import { downloadFileName } from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
 
-console.info("chrome main.js initialized");
+console.info("Chrome main.js initialized");
 
-const button = document.getElementById("btn");
+const button = document.getElementById("get-ical");
 
 if (button) {
   button.addEventListener("click", getData);
@@ -36,14 +37,14 @@ async function getData() {
 
     const downloadLink = document.createElement("a");
     downloadLink.href = iCal;
-    downloadLink.download = "uni.ical";
+    downloadLink.download = downloadFileName;
     downloadLink.click();
   } catch (error) {
     console.error(error);
   }
 }
 
-async function getSemCode(id:any, token:any) {
+async function getSemCode(id: any, token: any) {
   try {
     const res = await fetch(
       `https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/${id}&MaxRows=5`,
@@ -64,7 +65,7 @@ async function getSemCode(id:any, token:any) {
   }
 }
 
-async function getTimetable(id:any, token:any, semCode:any) {
+async function getTimetable(id: any, token: any, semCode: any) {
   try {
     const res = await fetch(
       `https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_LIST/queryx/${id},${semCode}&MaxRows=9999`,

@@ -16,7 +16,7 @@ export function convertTime12to24(time12h: string): string {
   if (modifier == "PM") {
     hours = (parseInt(hours, 10) + 12).toString()
   } else if (parseInt(hours, 10) < 10) {
-	return `0${hours}:${mins}:00`;
+    return `0${hours}:${mins}:00`;
   }
 
   return `${hours}:${mins}:00`;
