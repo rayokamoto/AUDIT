@@ -5,7 +5,6 @@
   "license": "MPL-2.0",
   "type": "module",
   "dependencies": {
-    "@types/chrome": "^0.0.224",
     "ical-generator": "^3.6.1"
   },
   "scripts": {
@@ -14,6 +13,7 @@
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^111.0.0",
+    "@types/chrome": "^0.0.224",
     "@types/luxon": "^3.2.0",
     "@types/node": "^18.14.6",
     "dayjs": "^1.11.7",
