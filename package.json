@@ -8,22 +8,20 @@
     "ical-generator": "^3.6.1"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build-chrome": "vite build --mode chrome",
+    "build-firefox": "vite build --mode firefox"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^111.0.0",
+    "@types/chrome": "^0.0.224",
     "@types/luxon": "^3.2.0",
     "@types/node": "^18.14.6",
-    "@types/webextension-polyfill": "^0.10.0",
     "dayjs": "^1.11.7",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.41",
     "rrule": "^2.7.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
-    "vite": "^4.2.0",
-    "webextension-polyfill": "^0.10.0"
+    "vite": "^4.2.0"
   }
 }

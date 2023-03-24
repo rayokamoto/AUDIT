@@ -1,6 +1,6 @@
 build/
 tests/
-
+extension/
 node_modules/
 
 # Logs
@@ -9,3 +9,6 @@ logs
 
 # For Mac users
 .DS_Store
+
+
+./package-lock.json

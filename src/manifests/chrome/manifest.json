@@ -9,17 +9,18 @@
   "action": {
     "default_icon": "icons/icon.png",
     "default_title": "CalSync",
-    "default_popup": "popup.html"  
-  },
-  "background": {
-    "scripts": [
-      "background/background.js"
-    ]
+    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
       "matches": [
         "*://*.adelaide.edu.au/**"
+      ],
+      "js": [
+        "main.js"
+      ],
+      "css": [
+        "style.css"
       ]
     }
   ],
@@ -27,7 +28,10 @@
     "webRequest",
     "webRequestBlocking",
     "webNavigation",
-    "storage"
+    "storage",
+    "tabs",
+    "scripting",
+    "activeTab"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -35,10 +39,11 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "main.js"
+        "main.js",
+        "style.css"
       ],
       "matches": [
-        "*://*.adelaide.edu.au/**"
+        "<all_urls>"
       ]
     }
   ]
