@@ -9,3 +9,7 @@ logs
 
 # For Mac users
 .DS_Store
+
+extention/
+
+./package-lock.json
