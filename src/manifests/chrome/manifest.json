@@ -20,18 +20,17 @@
         "main.js"
       ],
       "css": [
-        "style.css"
+        "css/style.css"
       ]
     }
   ],
   "permissions": [
-    "webRequest",
-    "webRequestBlocking",
-    "webNavigation",
+    "activeTab",
+    "scripting",
     "storage",
     "tabs",
-    "scripting",
-    "activeTab"
+    "webNavigation",
+    "webRequest"
   ],
   "host_permissions": [
     "<all_urls>"

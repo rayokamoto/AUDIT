@@ -3,6 +3,11 @@
   "name": "Uni CalSync",
   "version": "0.0.1",
   "description": "Automatically generate a .ical/.ics file for your uni timetable",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{CE7EA5DB-E53A-45C8-B02E-FF2E9B85DF9A}"
+             }
+      },
   "icons": {
     "128": "icons/icon.png"
   },
@@ -24,11 +29,10 @@
     }
   ],
   "permissions": [
-    "activeTab",
-    "webRequest",
-    "webRequestBlocking",
+    "storage",
     "webNavigation",
-    "storage"
+    "webRequest",
+    "webRequestBlocking"
   ],
   "host_permissions": [
     "<all_urls>"

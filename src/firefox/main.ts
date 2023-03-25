@@ -1,20 +1,27 @@
+import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions} from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
-import { downloadFileName } from "../common";
 
 console.info("Firefox main.js initialized");
-
-const button = document.getElementById("get-ical")!;
+checkPermissions();
 button.onclick = getData;
 
 async function getData() {
-  console.info("get data queried");
+  toggleInitVis();
+
   let rawData = {};
   await browser.storage.local.get().then(data => rawData = data);
+  if (!Object.keys(rawData).length) {
+    let err = "Failed to fetch data from API";
+    console.error(err);
+    addError(err)
+  }
 
-  const calendar = createCalendar("uni", rawData);
+  const calendar = createCalendar("University", rawData);
   const iCal = generateICal(calendar);
-  const downloadLink = document.createElement('a');
+  const downloadLink = document.createElement("a");
   downloadLink.href = iCal;
   downloadLink.download = downloadFileName;
   downloadLink.click();
+  addProgress("Downloaded iCal file");
 }
+

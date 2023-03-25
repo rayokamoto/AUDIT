@@ -5,23 +5,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalSync</title>
+    <title>AUDIT</title>
 
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
 
     <script type="application/javascript" src="browser-polyfill.min.js"></script>
 </head>
 
 <body>
-    <div class="extension-body">
-        <h1>Timetable iCal Generator</h1>
-
+    <div id="extension-body">
+        <h1 id="title">Adelaide Uni Downloadable iCal Timetable</h1>
         <p>Convert uni timetable data into an <code>ical</code> file that you can import into your calendars.</p>
+        <hr>
 
-        <button id="get-ical">Get</button>
+        <div id="instructions">
+            <h2>Instructions</h2>
+            <p>
+                Follow these simple steps to download your timetable
+            </p>
+            <ol>
+                <li>Go to <a href="https://myadelaide.uni.adelaide.edu.au/">MyAdelaide</a> and sign in</li>
+                <li>Click the download button</li>
+                <li>Wait for the download to complete</li>
+            </ol>
+        </div>
+        <div id="status">
+            <h2>Status</h2>
+            <hr>
+            <div id="progress-box"></div>
+            <div id="error-box"></div>
+            <hr>
+            <p>To import the ical file into your calendars follow the instructions <a href="https://github.com/rayokamoto/uni-calsync/">here</a></p>
+        </div>
+
+        <div id="download-box">
+            <button id="get-ical">Download iCal file</button>
+        </div>
     </div>
 
+    <script src="./main.js"></script>
 </body>
-<script src="./main.js"></script>
 
 </html>

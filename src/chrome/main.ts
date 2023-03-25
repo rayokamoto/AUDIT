@@ -1,15 +1,16 @@
-import { downloadFileName } from "../common";
+import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions } from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
 
 console.info("Chrome main.js initialized");
-
-const button = document.getElementById("get-ical");
+checkPermissions();
 
 if (button) {
   button.addEventListener("click", getData);
 }
 
 async function getData() {
+  toggleInitVis();
+
   try {
     const [tab] = await chrome.tabs.query({
       currentWindow: true,
@@ -32,13 +33,14 @@ async function getData() {
     const semCode = await getSemCode(id, token);
     const rawData = await getTimetable(id, token, semCode);
 
-    const calendar = createCalendar("uni", rawData);
+    const calendar = createCalendar("University", rawData);
     const iCal = generateICal(calendar);
 
     const downloadLink = document.createElement("a");
     downloadLink.href = iCal;
     downloadLink.download = downloadFileName;
     downloadLink.click();
+    addProgress("Downloaded iCal file");
   } catch (error) {
     console.error(error);
   }
