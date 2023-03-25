@@ -1,4 +1,4 @@
-import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions} from "../common";
+import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions } from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
 
 console.info("Firefox main.js initialized");
@@ -24,4 +24,3 @@ async function getData() {
   downloadLink.click();
   addProgress("Downloaded iCal file");
 }
-

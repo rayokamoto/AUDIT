@@ -63,4 +63,3 @@ browser.webNavigation.onCompleted.addListener(
     );
   })
 )
-
