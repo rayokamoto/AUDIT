@@ -2,7 +2,7 @@
 
 import subprocess
 import shutil
-import os
+from pathlib import Path
 import sys
 
 def build_chrome():
@@ -12,7 +12,7 @@ def build_chrome():
     shutil.copyfile("src/popup.html", "extension/chrome/popup.html")
     shutil.copytree("src/css", "extension/chrome/css", dirs_exist_ok=True)
 
-    os.mkdir("extension/chrome/icons")
+    Path("extension/chrome/icons").mkdir(exist_ok=True)
     shutil.copyfile("src/icon.png", "extension/chrome/icons/icon.png")
 
 def build_firefox():
@@ -23,13 +23,15 @@ def build_firefox():
     shutil.copyfile("src/popup.html", "extension/firefox/popup.html")
     shutil.copytree("src/css", "extension/firefox/css", dirs_exist_ok=True)
 
-    os.mkdir("extension/firefox/icons")
+    Path("extension/firefox/icons").mkdir(exist_ok=True)
     shutil.copyfile("src/icon.png", "extension/firefox/icons/icon.png")
 
 def build_prod():
     """ Extra build step for production """
     shutil.make_archive("firefox", 'zip', "extension/firefox/")
-    os.remove("extension/firefox.zip")
+    ff_zip = Path("extension/firefox.zip")
+    if ff_zip.exists():
+        ff_zip.unlink()
     shutil.move('./firefox.zip', "extension/")
 
 def main(argc, argv):
