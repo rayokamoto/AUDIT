@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.adelaide.edu.au/**"
+        "*://myadelaide.uni.adelaide.edu.au/**"
       ],
       "js": [
         "main.js"
