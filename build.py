@@ -29,10 +29,15 @@ def build_firefox():
 def build_prod():
     """ Extra build step for production """
     shutil.make_archive("firefox", 'zip', "extension/firefox/")
+    shutil.make_archive("chrome", 'zip', "extension/chrome/")
     ff_zip = Path("extension/firefox.zip")
     if ff_zip.exists():
         ff_zip.unlink()
+    ff_zip = Path("extension/chrome.zip")
+    if ff_zip.exists():
+        ff_zip.unlink()
     shutil.move('./firefox.zip', "extension/")
+    shutil.move('./chrome.zip', "extension/")
 
 def main(argc, argv):
     if argc == 1:
