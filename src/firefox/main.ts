@@ -7,7 +7,7 @@ const button = document.getElementById("get-ical")!;
 button.onclick = getData;
 
 async function getData() {
-  console.log("get data queried");
+  console.info("get data queried");
   let rawData = {};
   await browser.storage.local.get().then(data => rawData = data);
 
