@@ -1,12 +1,11 @@
-# Adelaide Uni Downloadable iCal Timetable (AUDIT)
-This project allows you to generate an iCal file containing your university timetable for a given semester, which you can then import into your calendar. 
+# AUDIT: Adelaide University Downloadable iCal Timetable
+This utility allows you to generate an iCal file containing your University of Adelaide timetable for a given semester, which you can then import into your calendar.
 
 ## Installation
 
 You can install AUDIT from the following web stores:
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/[]?label=Chrome%20Web%20Store&logo=google-chrome&logoColor=white)]()
-
 [![Firefox Add-ons](https://img.shields.io/amo/v/[]?label=Firefox%20Add-ons&logo=firefox-browser&logoColor=white)]()
 
 ## Importing iCal file
@@ -42,5 +41,5 @@ To import the iCal file into Apple Calendar, follow these steps:
 
 ## Developing 
 - Run `npm install` to install dependencies
-- Run `build.py` to convert TypeScript to JavaScript and copy necessary files
+- Run `build.py` to convert TypeScript to JavaScript and copy the necessary files
 - Find the extension under `extension/`

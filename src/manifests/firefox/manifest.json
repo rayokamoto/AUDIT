@@ -1,20 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Uni CalSync",
-  "version": "0.0.1",
-  "description": "Automatically generate a .ical/.ics file for your uni timetable",
+  "name": "AUDIT - Adelaide University Downloadable iCal Timetable",
+  "version": "1.0.0",
+  "description": "Automatically generate an iCal file for your University of Adelaide timetable",
   "browser_specific_settings": {
     "gecko": {
       "id": "{CE7EA5DB-E53A-45C8-B02E-FF2E9B85DF9A}"
-             }
-      },
+    }
+  },
   "icons": {
     "128": "icons/icon.png"
   },
   "action": {
     "default_icon": "icons/icon.png",
-    "default_title": "CalSync",
-    "default_popup": "popup.html"  
+    "default_title": "AUDIT",
+    "default_popup": "popup.html"
   },
   "background": {
     "scripts": [
@@ -41,7 +41,7 @@
     {
       "resources": [
         "main.js"
-        ],
+      ],
       "matches": [
         "*://*.adelaide.edu.au/**"
       ]

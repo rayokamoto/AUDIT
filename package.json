@@ -1,7 +1,7 @@
 {
   "name": "audit",
-  "version": "0.0.1",
-  "description": "Generate .ical files for your university timetable",
+  "version": "1.0.0",
+  "description": "Automatically generate an iCal file for your University of Adelaide timetable",
   "license": "MPL-2.0",
   "type": "module",
   "dependencies": {
