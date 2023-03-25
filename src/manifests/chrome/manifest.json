@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "AUDIT - Adelaide University Downloadable iCal Timetable",
+  "name": "AUDIT",
   "version": "1.0.0",
   "description": "Automatically generate an iCal file for your University of Adelaide timetable",
   "icons": {
