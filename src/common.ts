@@ -18,10 +18,10 @@ export function toggleInitVis() {
 }
 
 export function checkPermissions() {
-  if (!browser) {
+  if (typeof browser !== "undefined") {
     // Firefox
     browser.permissions.contains({
-      origins: ["*://*.adelaide.edu.au/*"]
+      origins: ["*://myadelaide.uni.adelaide.edu.au/*"]
     }).then((result) => {
       if (!result) {
         console.error("Permission not granted");
@@ -32,7 +32,7 @@ export function checkPermissions() {
   } else if (chrome) {
     // Chrome
     chrome.permissions.contains({
-      origins: ["*://*.adelaide.edu.au/*"]
+      origins: ["*://myadelaide.uni..adelaide.edu.au/*"]
     }, (result:any) => {
       if (!result) {
         console.error("Permission not granted");

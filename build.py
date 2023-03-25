@@ -33,6 +33,9 @@ def build_prod():
     ff_zip = Path("extension/firefox.zip")
     if ff_zip.exists():
         ff_zip.unlink()
+    ff_zip = Path("extension/chrome.zip")
+    if ff_zip.exists():
+        ff_zip.unlink()
     ch_zip = Path("extension/chrome.zip")
     if ch_zip.exists():
         ch_zip.unlink()

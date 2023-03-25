@@ -41,5 +41,5 @@ To import the iCal file into Apple Calendar, follow these steps:
 
 ## Developing 
 - Run `npm install` to install dependencies
-- Run `build.py` to convert TypeScript to JavaScript and copy the necessary files
+- Run `python3 build.py prod` to convert TypeScript to JavaScript and copy the necessary files
 - Find the extension under `extension/`
