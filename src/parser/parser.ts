@@ -5,8 +5,6 @@ import ical, { ICalCalendar, ICalEventRepeatingFreq, ICalRepeatingOptions } from
 import { addError, addProgress } from "../common";
 import * as utils from "./utils";
 
-// TODO: Add check to validate that status is success, queryname is TIMETABLE_LIST
-
 // NOTE:
 // LECTURE_SORT categories
 // 1: Lecture
@@ -28,7 +26,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   const F_DESCR = data["F.DESCR"];
   const eventLocation: string = `${G_DESCR} / ${F_ROOM} / ${F_DESCR}`;
 
-  const D_XLATSHORTNAME = data["D.D_XLATSHORTNAME"];
+  const D_XLATSHORTNAME = data["D.XLATSHORTNAME"];
   const classType: string = D_XLATSHORTNAME;
 
   const startDateData = data["E.START_DT"];
@@ -43,7 +41,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   const eventEnd = new Date(Date.parse(`${startDateData}T${endTime}`));
 
   // Use this to calculate repeating times
-  let startDate = new Date(Date.parse(startDateData));
+  //let startDate = new Date(Date.parse(startDateData));
   let endDate = new Date(Date.parse(endDateData));
   //let dateDelta = endDate.getTime() - startDate.getTime();
   const repeatOptions: ICalRepeatingOptions = {
