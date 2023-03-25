@@ -1,12 +1,3 @@
-// import { defineConfig } from "vite"
-
-// export default defineConfig({
-//     plugins: [],
-
-// })
-
-// /// 
-
 // vite.config.js
 import { defineConfig } from 'vite';
 
@@ -17,14 +8,14 @@ export default defineConfig(({ mode }) => {
         outDir: "extension/chrome",
         emptyOutDir: true,
         rollupOptions: {
-            input: {
-                index: new URL('./src/chrome/main.ts', import.meta.url).pathname,
-            },
-			output : {
-				entryFileNames: 'main.js'
-			}
+          input: {
+            index: new URL('./src/chrome/main.ts', import.meta.url).pathname,
+          },
+          output: {
+            entryFileNames: 'main.js'
+          }
         }
-    },
+      },
     }
   }
 
@@ -34,15 +25,15 @@ export default defineConfig(({ mode }) => {
         outDir: "extension/firefox",
         emptyOutDir: true,
         rollupOptions: {
-            input: {
-                index: new URL('./src/firefox/main.ts', import.meta.url).pathname,
-            },
-			output : {
-				entryFileNames: 'main.js'
-			}
-			
+          input: {
+            index: new URL('./src/firefox/main.ts', import.meta.url).pathname,
+          },
+          output: {
+            entryFileNames: 'main.js'
+          }
+
         }
-    },
+      },
     }
   }
   return {}

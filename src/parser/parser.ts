@@ -2,9 +2,8 @@
 
 import ical, { ICalCalendar, ICalEventRepeatingFreq, ICalRepeatingOptions } from "ical-generator";
 
+import { addError, addProgress } from "../common";
 import * as utils from "./utils";
-
-// TODO: Add check to validate that status is success, queryname is TIMETABLE_LIST
 
 // NOTE:
 // LECTURE_SORT categories
@@ -27,7 +26,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   const F_DESCR = data["F.DESCR"];
   const eventLocation: string = `${G_DESCR} / ${F_ROOM} / ${F_DESCR}`;
 
-  const D_XLATSHORTNAME = data["D.D_XLATSHORTNAME"];
+  const D_XLATSHORTNAME = data["D.XLATSHORTNAME"];
   const classType: string = D_XLATSHORTNAME;
 
   const startDateData = data["E.START_DT"];
@@ -41,11 +40,10 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   const eventStart = new Date(Date.parse(`${startDateData}T${startTime}`));
   const eventEnd = new Date(Date.parse(`${startDateData}T${endTime}`));
 
-
-  // use this to calculate repeating times
-  let startDate = new Date(Date.parse(startDateData));
+  // Use this to calculate repeating times
+  //let startDate = new Date(Date.parse(startDateData));
   let endDate = new Date(Date.parse(endDateData));
-  let dateDelta = endDate.getTime() - startDate.getTime();
+  //let dateDelta = endDate.getTime() - startDate.getTime();
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
     until: endDate,
@@ -64,12 +62,16 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
 export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
   let calendar = ical({ name: name });
   if (data["status"] !== "success") {
-    console.error("API response was not successful!");
+    let err = "API response was not successful!";
+    console.error(err);
+    addError(err);
     // TODO: return this as error or raise exception
   }
 
   if (data["data"]["query"]["queryname="] !== "TIMETABLE_LIST") {
-    console.error("Data is not timetable list, cannot proceed further");
+    let err = "Data is not timetable list, cannot proceed further";
+    console.error(err);
+    addError(err);
     // TODO: return as error or raise exception
   }
 
@@ -79,15 +81,13 @@ export function createCalendar(name: string, data: { [x: string]: any; }): ICalC
     createCalEvent(calendar, rows[i]);
   }
 
+  addProgress("Parsed JSON into iCal");
   return calendar
 }
 
-
-// TODO: there needs to be a function to deal with the file to download, etc.
 export function generateICal(cal: ICalCalendar): string {
   const blobData = cal.toBlob();
   const blobURL = URL.createObjectURL(blobData);
+  addProgress("Generated iCal file");
   return blobURL;
 }
-
-

@@ -1,3 +1,15 @@
+:root {
+    --bg-color: #ffffff;
+    --color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #2e2e2e;
+        --color: #ffffff;
+    }
+}
+
 *,
 *:before,
 *:after {
@@ -10,6 +22,75 @@ html {
     font-size: 16px;
 }
 
-.extension-body {
+body {
+    background: var(--bg-color);
+    color: var(--color);
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    color: #58a0ff;
+}
+
+li {
+    margin-left: 0;
+}
+
+hr {
+    background: var(--color);
+    margin: 1em 0;
+}
+
+#extension-body {
+    margin: 0;
+    padding: 1em;
     width: 25em;
+    min-width: 25em;
+}
+
+#title {
+    margin: 0;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#instructions {
+    padding: 1em;
+}
+
+#status {
+    display: none;
+    border: 2px solid #58a0ff;
+    border-radius: 3px;
+    padding: 1em;
+}
+
+#progress-box .progress-item {
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border: 1px solid #58a0ff;
+    border-radius: 3px;
+}
+
+#error-box .error {
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border: 1px solid #ff0000;
+    border-radius: 3px;
+}
+
+#download-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#get-ical {
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    font-family: sans-serif;
 }
