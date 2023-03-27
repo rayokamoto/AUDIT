@@ -6,7 +6,7 @@ This utility allows you to generate an iCal file containing your University of A
 You can install AUDIT from the following web stores:
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/[]?label=Chrome%20Web%20Store&logo=google-chrome&logoColor=white)]()
-[![Firefox Add-ons](https://img.shields.io/amo/v/[]?label=Firefox%20Add-ons&logo=firefox-browser&logoColor=white)]()
+[![Firefox Add-ons](https://img.shields.io/amo/v/audit?label=Firefox%20Add-ons&logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/audit/)
 
 ## Importing iCal file
 
