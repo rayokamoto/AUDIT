@@ -43,6 +43,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   // Use this to calculate repeating times
   //let startDate = new Date(Date.parse(startDateData));
   let endDate = new Date(Date.parse(endDateData));
+  console.debug(`${eventSummary} - start: ${eventStart},end: ${eventEnd},enddate: ${endDate},clsType: ${classType}`);
   //let dateDelta = endDate.getTime() - startDate.getTime();
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
@@ -80,6 +81,8 @@ export function createCalendar(name: string, data: { [x: string]: any; }): ICalC
   for (let i = 0; i < numRows; ++i) {
     createCalEvent(calendar, rows[i]);
   }
+
+  console.debug(calendar.events());
 
   addProgress("Parsed JSON into iCal");
   return calendar

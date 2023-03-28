@@ -3,10 +3,20 @@ This utility allows you to generate an iCal file containing your University of A
 
 ## Installation
 
-You can install AUDIT from the following web stores:
+You can install AUDIT by downloading it through the releases tab or by building it yourself (see [Developing](#developing) for more information).
 
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/[]?label=Chrome%20Web%20Store&logo=google-chrome&logoColor=white)]()
-[![Firefox Add-ons](https://img.shields.io/amo/v/audit?label=Firefox%20Add-ons&logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/audit/)
+AUDIT is not currently available on Firefox Add-ons or the Chrome Web Store.
+
+### Chrome
+Download the zip file from the releases tab or build the extension yourself.
+
+Unzip the Chrome file and load the unpacked extension at `chrome://extensions`. Make sure that developer mode is enabled, otherwise the option to load an unpacked extension won't be available.
+
+### Firefox
+
+Download the `.xpi` file from the releases tab or build it yourself.
+
+Go to `about:addons` then under the settings icon, click "Install Add-on From File...". Make sure to give the extension its required permissions.
 
 ## Importing iCal file
 
@@ -37,7 +47,7 @@ To import the iCal file into Apple Calendar, follow these steps:
 6. Choose the calendar where you want to add the imported events.
 7. Click "Import" and wait for the calendar to import the events from the iCal file.
 
-> **Note:**
+> **Note**
 > Depending on the version of the Google Calendar or Apple Calendar you are using, the steps may differ slightly, but the general process should be the same.
 
 ## Developing 
