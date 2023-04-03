@@ -62,6 +62,15 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
 
 export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
   let calendar = ical({ name: name });
+  const tz = "Australia/Adelaide";
+  calendar.timezone(tz);
+  calendar.x([
+    {
+      key: "X-LIC-LOCATION",
+      value: tz
+    }
+  ])
+
   if (data["status"] !== "success") {
     let err = "API response was not successful!";
     console.error(err);
