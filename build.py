@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 
-import subprocess
-import shutil
+import json
 from pathlib import Path
+import shutil
+import subprocess
 import sys
 
 def build_chrome():
@@ -26,8 +27,34 @@ def build_firefox():
     Path("extension/firefox/icons").mkdir(exist_ok=True)
     shutil.copyfile("src/icon.png", "extension/firefox/icons/icon.png")
 
+def update_version(fp, version, msg):
+    with open(fp, "r+") as f:
+        config = json.load(f)
+        f.seek(0)
+        config["version"] = version
+        json.dump(config, f, indent=2)
+        f.truncate()
+    if msg != "":
+        print(msg)
+
 def build_prod():
-    """ Extra build step for production """
+    """ Build with extra steps for production """
+
+    try:
+        version = subprocess.check_output("git describe --tags --abbrev=0", shell=True, stderr=subprocess.DEVNULL)
+        version = str(version)[3:-3]
+    except subprocess.CalledProcessError as e:
+        version = "1.0.0"
+        print(f"Error while fetching version!\n{e}")
+    print(f"Current version: {version}")
+
+    update_version("package.json", version, "Updated package.json")
+    update_version("src/manifests/chrome/manifest.json", version, "Updated Chrome manifest.json")
+    update_version("src/manifests/firefox/manifest.json", version, "Updated Firefox manifest.json")
+
+    build_chrome()
+    build_firefox()
+
     shutil.make_archive("firefox", "zip", "extension/firefox/")
     shutil.make_archive("chrome", "zip", "extension/chrome/")
     ff_zip = Path("extension/firefox.zip")
@@ -45,8 +72,6 @@ def main(argc, argv):
         build_firefox()
     elif argc == 2:
         if argv[1] == "prod":
-            build_chrome()
-            build_firefox()
             build_prod()
         elif argv[1] == "chrome":
             build_chrome()
