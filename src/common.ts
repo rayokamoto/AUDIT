@@ -1,6 +1,6 @@
 // TODO: merge common variables, functions, etc. from Chrome and Firefox scripts
 
-export const downloadFileName = "uni-timetable.ical";
+export const downloadFileName = "uni-timetable.ics";
 
 export const instructions = document.getElementById("instructions")!;
 export const status = document.getElementById("status")!;
