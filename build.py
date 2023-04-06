@@ -37,16 +37,17 @@ def update_version(fp, version, msg):
     if msg != "":
         print(msg)
 
-def build_prod():
+def build_prod(version=None):
     """ Build with extra steps for production """
 
-    try:
-        version = subprocess.check_output("git describe --tags --abbrev=0", shell=True, stderr=subprocess.DEVNULL)
-        version = str(version)[3:-3]
-    except subprocess.CalledProcessError as e:
-        version = "1.0.0"
-        print(f"Error while fetching version!\n{e}")
-    print(f"Current version: {version}")
+    if version is None:
+        try:
+            version = subprocess.check_output("git describe --tags --abbrev=0", shell=True, stderr=subprocess.DEVNULL)
+            version = str(version)[3:-3]
+        except subprocess.CalledProcessError as e:
+            version = "1.0.0"
+            print(f"Error while fetching version!\n{e}")
+        print(f"Current version: {version}")
 
     update_version("package.json", version, "Updated package.json")
     update_version("src/manifests/chrome/manifest.json", version, "Updated Chrome manifest.json")
@@ -70,9 +71,11 @@ def main(argc, argv):
     if argc == 1:
         build_chrome()
         build_firefox()
-    elif argc == 2:
-        if argv[1] == "prod":
-            build_prod()
+    elif argc >= 2:
+        if argv[1] == "prod" and argc == 3:
+            build_prod(argv[2])
+        elif argv[1] == "prod":
+                build_prod()
         elif argv[1] == "chrome":
             build_chrome()
         elif argv[1] == "firefox":
