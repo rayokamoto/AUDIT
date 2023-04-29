@@ -10,9 +10,11 @@ AUDIT is not currently available on Firefox Add-ons or the Chrome Web Store.
 ### Chrome
 Download the zip file from the releases tab or build the extension yourself.
 
-Unzip the Chrome file and load the unpacked extension at `chrome://extensions`. Make sure that developer mode is enabled, otherwise the option to load an unpacked extension won't be available.
+Unzip the Chrome file and load the unpacked extension at `chrome://extensions`. Make sure that developer mode is enabled, otherwise, the option to load an unpacked extension won't be available.
 
 ### Firefox
+
+You must be using Firefox 109 or later.
 
 Download the `.xpi` file from the releases tab or build it yourself.
 
@@ -56,4 +58,4 @@ To import the iCal file into Apple Calendar, follow these steps:
 - Find the extension under `extension/`
 
 ## Contributing
-If you notice any issues with the extension, please open an issue or create a pull request that addresses said issues. Any suggestions or feature requests may also be added in the issues.
+If you notice any issues with the extension, please open an issue or create a pull request that addresses said issues. Any suggestions or feature requests may also be added to the issues.
