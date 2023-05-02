@@ -7,6 +7,8 @@ You can install AUDIT by downloading it through the releases tab or by building 
 
 AUDIT is not currently available on Firefox Add-ons or the Chrome Web Store.
 
+**To run this extension you must be on the MyAdeliade Home Page**
+
 ### Chrome
 Download the zip file from the releases tab or build the extension yourself.
 
