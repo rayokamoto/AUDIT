@@ -1,16 +1,35 @@
-import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions } from "../common";
+import {
+  downloadFileName,
+  button,
+  downloadLogsBtn,
+  toggleInitVis,
+  addProgress,
+  checkPermissions,
+} from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
+import { appendLog, getLogsAsFile, logLevels } from "../log";
 
-console.info("Chrome main.js initialized");
+appendLog(logLevels.INFO, "Chrome main.js initialised");
 checkPermissions();
+checkForNewGithubRelease();
 
 if (button) {
   button.addEventListener("click", getData);
 }
 
+if (downloadLogsBtn) {
+  downloadLogsBtn.addEventListener("click", () => {
+    const logFile = getLogsAsFile();
+    const downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(logFile);
+    downloadLink.download = "uni-timetable-logs.txt";
+    downloadLink.click();
+  });
+}
+
 async function getData() {
   toggleInitVis();
-
+  appendLog(logLevels.INFO, "Fetching data from API");
   try {
     const [tab] = await chrome.tabs.query({
       currentWindow: true,
@@ -24,6 +43,7 @@ async function getData() {
         return window.sessionStorage.getItem("myAdel");
       },
     });
+    appendLog(logLevels.INFO, "Fetched access token of user");
 
     const { accessToken } = JSON.parse(results[0].result!);
     const token = accessToken.accessToken;
@@ -32,22 +52,31 @@ async function getData() {
 
     const semCode = await getSemCode(id, token);
     const rawData = await getTimetable(id, token, semCode);
+    try {
 
-    const calendar = createCalendar("University", rawData);
-    const iCal = generateICal(calendar);
-
-    const downloadLink = document.createElement("a");
-    downloadLink.href = iCal;
-    downloadLink.download = downloadFileName;
-    downloadLink.click();
-    addProgress("Downloaded iCal file");
-  } catch (error) {
-    console.error(error);
+      const calendar = createCalendar("University", rawData);
+      const iCal = generateICal(calendar);
+      if (iCal === "") {
+        appendLog(logLevels.ERROR, "iCal blob URL is empty");
+        throw new Error("iCal blob URL is empty");
+      }
+      const downloadLink = document.createElement("a");
+      downloadLink.href = iCal;
+      downloadLink.download = downloadFileName;
+      downloadLink.click();
+      appendLog(logLevels.INFO, "Downloaded iCal file");
+      addProgress("Downloaded iCal file");
+    } catch (e) {
+      appendLog(logLevels.ERROR, `Failed to generate calendar: ${e}`);
+    }
+  } catch (error: string | any) {
+    appendLog(logLevels.ERROR, error);
   }
 }
 
 async function getSemCode(id: any, token: any) {
   try {
+    appendLog(logLevels.INFO, "Fetching semester code");
     const res = await fetch(
       `https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/${id}&MaxRows=5`,
       {
@@ -60,15 +89,22 @@ async function getSemCode(id: any, token: any) {
         },
       }
     );
+    if (!res.ok) {
+      appendLog(logLevels.ERROR, "Failed to fetch semester code, got: ${res.status} as response");
+      throw new Error("Failed to fetch semester code");
+    }
+    appendLog(logLevels.INFO, "Fetched semester code");
     const resData = await res.json();
+    appendLog(logLevels.INFO, "Parsed semester code");
     return resData.data.query.rows[0]["A.STRM"];
-  } catch (error) {
-    console.error(error);
+  } catch (error: string | any) {
+    appendLog(logLevels.ERROR, error);
   }
 }
 
 async function getTimetable(id: any, token: any, semCode: any) {
   try {
+    appendLog(logLevels.INFO, "Fetching timetable data");
     const res = await fetch(
       `https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_LIST/queryx/${id},${semCode}&MaxRows=9999`,
       {
@@ -80,9 +116,39 @@ async function getTimetable(id: any, token: any, semCode: any) {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
-    return await res.json();
-  } catch (error) {
-    console.error(error);
+    )
+    if (!res.ok) {
+      appendLog(logLevels.ERROR, "Failed to fetch timetable data, got: ${res.status} as response");
+      throw new Error("Failed to fetch timetable data");
+    }
+    appendLog(logLevels.INFO, "Fetched timetable data");
+    const resData = await res.json();
+    appendLog(logLevels.INFO, "Parsed timetable data");
+    return resData;
+  } catch (error: string | any) {
+    appendLog(logLevels.ERROR, error);
   }
+}
+
+function checkForNewGithubRelease() {
+  fetch("https://api.github.com/repos/rayokamoto/AUDIT/releases/latest").then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      appendLog(logLevels.ERROR, "Failed to fetch latest release");
+      throw new Error("Failed to fetch latest release");
+    }
+  }).then((data) => {
+    const latestVersion = data.tag_name.replace("v", "");
+    const updateBox = document.getElementById("update")!;
+
+      const currentVersion = chrome.runtime.getManifest().version;
+      if (latestVersion > currentVersion) {
+        appendLog(logLevels.INFO, `New version available: ${latestVersion}`);
+        updateBox.style.display = "block";
+        updateBox.innerHTML += `<a href = "https://github.com/repos/rayokamoto/AUDIT/releases/latest">New version available: ${latestVersion}. (Right click and open in a new tab)</a>`
+      }
+  }).catch((err) => {
+    appendLog(logLevels.ERROR, `Failed to check for new release: ${err}`);
+  });
 }

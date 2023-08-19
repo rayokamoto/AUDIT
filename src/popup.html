@@ -14,6 +14,7 @@
 
 <body>
     <div id="extension-body">
+        <div id="update"></div>
         <h1 id="title">AUDIT - Timetable Downloader</h1>
         <p>Convert your University of Adelaide timetable data into an iCal file that you can import into your calendars.</p>
         <hr>
@@ -34,9 +35,17 @@
             <hr>
             <div id="progress-box"></div>
             <div id="error-box"></div>
+            <div id="log-box">
+                <button id="download-logs">Download logs</button>
+                <details>
+                    <summary>Logs</summary>
+                    <div id="logs-panel"></div>
+                </details>
+            </div>
             <hr>
             <p>To import the iCal file into your calendars, follow the instructions: <a
                     href="https://github.com/rayokamoto/AUDIT/">here</a></p>
+            <p>If you encounter an error, please make a issue and attach your logs <a href="https://github.com/rayokamoto/AUDIT/issues">here</a></p>
         </div>
 
         <div id="download-box">

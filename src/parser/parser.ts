@@ -1,21 +1,23 @@
-// Parse JSON data and convert it to .ics format
+/**
+ * Parse JSON data and convert it to .ics format
+ */
 
-import ical, { ICalCalendar, ICalEventRepeatingFreq, ICalRepeatingOptions } from "ical-generator";
+import ical, {
+  ICalCalendar,
+  ICalEventRepeatingFreq,
+  ICalRepeatingOptions,
+} from "ical-generator";
 
 import { addError, addProgress } from "../common";
+import { appendLog, logLevels } from "../log";
 import * as utils from "./utils";
-
-// NOTE:
-// LECTURE_SORT categories
-// 1: Lecture
-// 2: Workshop | Practical
 
 /**
  * Create a single calendar event
  * @param calendar
  * @param data JSON data from API response
  */
-function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
+function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any }) {
   const B_SUBJECT = data["B.SUBJECT"];
   const B_CATALOG_NBR = data["B.CATALOG_NBR"];
   const B_DESCR = data["B.DESCR"];
@@ -41,14 +43,12 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
   const eventEnd = new Date(Date.parse(`${startDateData}T${endTime}`));
 
   // Use this to calculate repeating times
-  //let startDate = new Date(Date.parse(startDateData));
   let endDate = new Date(Date.parse(endDateData));
-  //console.debug(`${eventSummary} - start: ${eventStart},end: ${eventEnd},enddate: ${endDate},clsType: ${classType}`);
-  //let dateDelta = endDate.getTime() - startDate.getTime();
+  appendLog(logLevels.DEBUG,`Creating event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; enddate: ${endDate}; clsType: ${classType}`);
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
     until: endDate,
-  }
+  };
 
   calendar.createEvent({
     summary: eventSummary,
@@ -58,48 +58,64 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any; }) {
     end: eventEnd,
     repeating: repeatOptions,
   });
+
+  appendLog(logLevels.DEBUG,`Created event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; enddate: ${endDate}; clsType: ${classType}`)
 }
 
-export function createCalendar(name: string, data: { [x: string]: any; }): ICalCalendar {
+export function createCalendar(
+  name: string,
+  data: { [x: string]: any }
+): ICalCalendar {
   let calendar = ical({ name: name });
   const tz = "Australia/Adelaide";
   calendar.timezone(tz);
   calendar.x([
     {
       key: "X-LIC-LOCATION",
-      value: tz
-    }
-  ])
+      value: tz,
+    },
+  ]);
 
   if (data["status"] !== "success") {
     let err = "API response was not successful!";
-    console.error(err);
+    appendLog(logLevels.ERROR, err);
     addError(err);
-    // TODO: return this as error or raise exception
+    throw new Error(err);
   }
 
   if (data["data"]["query"]["queryname="] !== "TIMETABLE_LIST") {
     let err = "Data is not timetable list, cannot proceed further";
-    console.error(err);
+    appendLog(logLevels.ERROR, err);
     addError(err);
-    // TODO: return as error or raise exception
+    throw new Error(err);
   }
 
   const numRows: number = data["data"]["query"]["numrows"];
-  const rows: { [x: string]: any; } = data["data"]["query"]["rows"];
+  const rows: { [x: string]: any } = data["data"]["query"]["rows"];
   for (let i = 0; i < numRows; ++i) {
+    // NOTE: Crude way to skip events with no start time
+    // TODO: Find more elegant solution
+    if (rows[i]["START_TIME"] === "") {
+      appendLog(logLevels.WARN, `Skipping event with no start time: ${rows[i]["B.SUBJECT"]} ${rows[i]["B.CATALOG_NBR"]} - ${rows[i]["B.DESCR"]}`);
+      continue;
+    }
     createCalEvent(calendar, rows[i]);
   }
-
-  //console.debug(calendar.events());
-
+  appendLog(logLevels.INFO, "Parsed JSON into iCal");
   addProgress("Parsed JSON into iCal");
-  return calendar
+  return calendar;
 }
 
 export function generateICal(cal: ICalCalendar): string {
-  const blobData = cal.toBlob();
-  const blobURL = URL.createObjectURL(blobData);
-  addProgress("Generated iCal file");
+  let blobURL = "";
+  try {
+    const blobData = cal.toBlob();
+    blobURL = URL.createObjectURL(blobData);
+    appendLog(logLevels.INFO, `Generated iCal file with file name: ${blobURL}`);
+    addProgress("Generated iCal file");
+  } catch (e) {
+    appendLog(logLevels.ERROR, `Failed to generate iCal file: ${e}`);
+    addError("Failed to generate iCal file");
+  }
   return blobURL;
 }

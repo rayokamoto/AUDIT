@@ -1,8 +1,12 @@
-// This background script uses onBeforeSendHeaders to grab the auth token from the targetURL and use that to get the timetable data for the entire semester 
-// For Firefox only
+/**
+ * This background script uses onBeforeSendHeaders to grab the auth token from the targetURL and use that to get the timetable data for the entire semester
+ * 
+ * For Firefox only
+ */
+
 
 const targetURL = "https://api.adelaide.edu.au/api/generic-query-structured/v1/?target=/system/TIMETABLE_WIDGET/queryx/*";
-console.info("Firefox background script running")
+
 async function getIDandCode(url: string, token: string) {
   let queryMatch = url.match(/\/(\d+)\&/);
   let ID = queryMatch ? queryMatch[1] : null;
@@ -19,8 +23,8 @@ async function getIDandCode(url: string, token: string) {
     await res.json().then(resData => {
       semCode = resData.data.query.rows[0]["A.STRM"];
     })
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err)
   }
   return { ID, semCode };
 }
@@ -49,7 +53,11 @@ async function getTimetable(e: any) {
     console.error(err);
     return err;
   }
-  browser.storage.local.set(timetableData);
+  browser.storage.local.set(timetableData).catch(err => {
+    console.error(err);
+  }).then(() => {
+    console.log("Timetable data saved to local storage");
+  });
   return timetableData;
 }
 

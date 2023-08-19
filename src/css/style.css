@@ -1,6 +1,11 @@
 :root {
     --bg-color: #ffffff;
     --color: #000000;
+    --accent-error: #ff0000;
+    --accent-warning: #ff8c00;
+    --accent-info: #00ff00;
+    --accent-debug: #0000ff;
+    --accent-status: #58a0ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,7 +69,7 @@ hr {
 
 #status {
     display: none;
-    border: 2px solid #58a0ff;
+    border: 2px solid var(--accent-status);
     border-radius: 3px;
     padding: 1em;
 }
@@ -72,15 +77,66 @@ hr {
 #progress-box .progress-item {
     margin-bottom: 0.5em;
     padding: 0.5em;
-    border: 1px solid #58a0ff;
+    border: 1px solid var(--accent-status);
     border-radius: 3px;
 }
 
 #error-box .error {
     margin-bottom: 0.5em;
     padding: 0.5em;
-    border: 1px solid #ff0000;
+    border: 1px solid var(--accent-error);
     border-radius: 3px;
+}
+
+#log-box #download-logs {
+    margin: 0 auto;
+    padding: 0.5em;
+}
+
+#logs-panel {
+    max-height: 180px;
+    background-color: #2e2e2e;
+    overflow: scroll;
+}
+
+#log {
+    padding: 0.5em;
+}
+
+#log-message {
+    padding: 0.5em;
+    text-align: center;
+    color: #ffffff;
+}
+
+#log-timestamp {
+    padding: 0.5em;
+    text-align: left;
+    color: #ffffff;
+}
+
+#log-level-ERROR {
+    padding: 0.5em;
+    text-align: right;
+    color: var(--accent-error);
+}
+
+#log-level-WARN {
+    padding: 0.5em;
+    text-align: right;
+    color: var(--accent-warning);
+}
+
+#log-level-INFO {
+    padding: 0.5em;
+    text-align: right;
+    color: var(--accent-info);
+}
+
+#log-level-DEBUG {
+    padding: 0.5em;
+    text-align: right;
+    color: var(--accent-debug);
 }
 
 #download-box {
@@ -89,8 +145,15 @@ hr {
     justify-content: center;
 }
 
+#update {
+    display: none;
+    border: 2px solid var(--accent-status);
+    border-radius: 3px;
+    padding: 1em;
+    margin-bottom: 0.5em;
+}
+
 #get-ical {
     margin: 0 auto;
     padding: 0.5em 1em;
-    font-family: sans-serif;
 }

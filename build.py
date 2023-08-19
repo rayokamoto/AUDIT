@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import json
 from pathlib import Path
@@ -67,12 +67,12 @@ def build_prod(version=None):
     shutil.move("./firefox.zip", "extension/")
     shutil.move("./chrome.zip", "extension/")
 
-def main(argc, argv):
-    if argc == 1:
+def main(argv):
+    if len(argv) == 1:
         build_chrome()
         build_firefox()
-    elif argc >= 2:
-        if argv[1] == "prod" and argc == 3:
+    elif len(argv) >= 2:
+        if argv[1] == "prod" and len(argv) == 3:
             build_prod(argv[2])
         elif argv[1] == "prod":
                 build_prod()
@@ -87,5 +87,4 @@ def main(argc, argv):
 
 if __name__ == "__main__":
     argv = sys.argv
-    argc = len(argv)
-    main(argc, argv)
+    main(argv)
