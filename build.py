@@ -85,6 +85,24 @@ def build_prod(version=None):
     shutil.move("./chrome.zip", "extension/")
 
 
+def build_test():
+    """Build test for CI"""
+
+    build_chrome()
+    build_firefox()
+
+    shutil.make_archive("firefox", "zip", "extension/firefox/")
+    shutil.make_archive("chrome", "zip", "extension/chrome/")
+    ff_zip = Path("extension/firefox.zip")
+    if ff_zip.exists():
+        ff_zip.unlink()
+    ch_zip = Path("extension/chrome.zip")
+    if ch_zip.exists():
+        ch_zip.unlink()
+    shutil.move("./firefox.zip", "extension/")
+    shutil.move("./chrome.zip", "extension/")
+
+
 def main(argv):
     if len(argv) == 1:
         build_chrome()
@@ -94,6 +112,8 @@ def main(argv):
             build_prod(argv[2])
         elif argv[1] == "prod":
             build_prod()
+        elif argv[1] == "test":
+            build_test()
         elif argv[1] == "chrome":
             build_chrome()
         elif argv[1] == "firefox":
