@@ -1,10 +1,14 @@
-import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions, downloadLogsBtn } from "../common";
+import { downloadFileName, button, toggleInitVis, addError, addProgress, checkPermissions, downloadLogsBtn, injectVersion, checkForNewVersion } from "../common";
 import { logLevels, appendLog, getLogsAsFile } from "../log";
 import { createCalendar, generateICal } from "../parser/parser";
 
 appendLog(logLevels.INFO, "Firefox main.js initialised");
+
+const currentVersion = browser.runtime.getManifest().version;
+injectVersion(currentVersion);
+
 checkPermissions();
-checkForNewGithubRelease();
+checkForNewVersion(currentVersion);
 button.onclick = getData;
 
 if (downloadLogsBtn) {
@@ -47,25 +51,3 @@ async function getData() {
   }
 }
 
-function checkForNewGithubRelease() {
-  fetch("https://api.github.com/repos/rayokamoto/AUDIT/releases/latest").then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      appendLog(logLevels.ERROR, "Failed to fetch latest release");
-      throw new Error("Failed to fetch latest release");
-    }
-  }).then((data) => {
-    const latestVersion = data.tag_name.replace("v", "");
-    const updateBox = document.getElementById("update")!;
-
-      const currentVersion = browser.runtime.getManifest().version;
-      if (latestVersion > currentVersion) {
-        appendLog(logLevels.INFO, `New version available: ${latestVersion}`);
-        updateBox.style.display = "block";
-        updateBox.innerHTML += `<a href = "https://github.com/repos/rayokamoto/AUDIT/releases/latest">New version available: ${latestVersion}. (Right click and open in a new tab)</a>`
-      }
-  }).catch((err) => {
-    appendLog(logLevels.ERROR, `Failed to check for new release: ${err}`);
-  });
-}

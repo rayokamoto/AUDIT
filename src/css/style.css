@@ -94,6 +94,7 @@ hr {
 }
 
 #logs-panel {
+    margin-top: 1em;
     max-height: 180px;
     background-color: #2e2e2e;
     overflow: scroll;
@@ -101,6 +102,7 @@ hr {
 
 #log {
     padding: 0.5em;
+    font: 0.8rem monospace;
 }
 
 #log-message {
@@ -156,4 +158,8 @@ hr {
 #get-ical {
     margin: 0 auto;
     padding: 0.5em 1em;
+}
+
+#footer {
+    font-size: 0.5rem;
 }

@@ -5,13 +5,19 @@ import {
   toggleInitVis,
   addProgress,
   checkPermissions,
+  injectVersion,
+  checkForNewVersion,
 } from "../common";
 import { createCalendar, generateICal } from "../parser/parser";
 import { appendLog, getLogsAsFile, logLevels } from "../log";
 
 appendLog(logLevels.INFO, "Chrome main.js initialised");
+
+const currentVersion = chrome.runtime.getManifest().version;
+injectVersion(currentVersion);
+
 checkPermissions();
-checkForNewGithubRelease();
+checkForNewVersion(currentVersion);
 
 if (button) {
   button.addEventListener("click", getData);
@@ -128,27 +134,4 @@ async function getTimetable(id: any, token: any, semCode: any) {
   } catch (error: string | any) {
     appendLog(logLevels.ERROR, error);
   }
-}
-
-function checkForNewGithubRelease() {
-  fetch("https://api.github.com/repos/rayokamoto/AUDIT/releases/latest").then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      appendLog(logLevels.ERROR, "Failed to fetch latest release");
-      throw new Error("Failed to fetch latest release");
-    }
-  }).then((data) => {
-    const latestVersion = data.tag_name.replace("v", "");
-    const updateBox = document.getElementById("update")!;
-
-      const currentVersion = chrome.runtime.getManifest().version;
-      if (latestVersion > currentVersion) {
-        appendLog(logLevels.INFO, `New version available: ${latestVersion}`);
-        updateBox.style.display = "block";
-        updateBox.innerHTML += `<a href = "https://github.com/repos/rayokamoto/AUDIT/releases/latest">New version available: ${latestVersion}. (Right click and open in a new tab)</a>`
-      }
-  }).catch((err) => {
-    appendLog(logLevels.ERROR, `Failed to check for new release: ${err}`);
-  });
 }
