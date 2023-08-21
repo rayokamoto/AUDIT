@@ -1,5 +1,6 @@
 :root {
     --bg-color: #ffffff;
+    --bg-color-2: #dcdcdc;
     --color: #000000;
     --accent-error: #ff0000;
     --accent-warning: #ff8c00;
@@ -11,6 +12,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #2e2e2e;
+        --bg-color-2: #262626;
         --color: #ffffff;
     }
 }
@@ -28,6 +30,7 @@ html {
 }
 
 body {
+    margin: 0;
     background: var(--bg-color);
     color: var(--color);
 }
@@ -51,25 +54,37 @@ hr {
 
 #extension-body {
     margin: 0;
-    padding: 1em;
     width: 25em;
     min-width: 25em;
 }
 
-#title {
+#update {
+    padding: 1em 1.5em;
+}
+
+header {
+    padding: 1em 1.5em;
+    background-color: var(--bg-color-2);
+}
+
+h1, h2 {
     margin: 0;
     margin-bottom: 1em;
+}
+
+#title {
     font-size: 1.5em;
     text-align: center;
 }
 
 #instructions {
-    padding: 1em;
+    padding: 1em 1.5em;
 }
 
 #status {
     display: none;
     border: 2px solid var(--accent-status);
+    margin: 1px;
     border-radius: 3px;
     padding: 1em;
 }
@@ -88,6 +103,10 @@ hr {
     border-radius: 3px;
 }
 
+#log-box details {
+    margin: 1em 0;
+}
+
 #log-box #download-logs {
     margin: 0 auto;
     padding: 0.5em;
@@ -100,43 +119,41 @@ hr {
     overflow: scroll;
 }
 
-#log {
+.log {
     padding: 0.5em;
     font: 0.8rem monospace;
 }
 
-#log-message {
-    padding: 0.5em;
+.log span {
+    padding: 0.5em 0;
+}
+
+.log-message {
     text-align: center;
     color: #ffffff;
 }
 
-#log-timestamp {
-    padding: 0.5em;
+.log-timestamp {
     text-align: left;
     color: #ffffff;
 }
 
-#log-level-ERROR {
-    padding: 0.5em;
+.log-level-ERROR {
     text-align: right;
     color: var(--accent-error);
 }
 
-#log-level-WARN {
-    padding: 0.5em;
+.log-level-WARN {
     text-align: right;
     color: var(--accent-warning);
 }
 
-#log-level-INFO {
-    padding: 0.5em;
+.log-level-INFO {
     text-align: right;
     color: var(--accent-info);
 }
 
-#log-level-DEBUG {
-    padding: 0.5em;
+.log-level-DEBUG {
     text-align: right;
     color: var(--accent-debug);
 }
@@ -145,6 +162,7 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0.5em 0 1em 0;
 }
 
 #update {
@@ -161,5 +179,7 @@ hr {
 }
 
 #footer {
-    font-size: 0.5rem;
+    padding: 1em;
+    background-color: var(--bg-color-2);
+    font-size: 0.8rem;
 }
