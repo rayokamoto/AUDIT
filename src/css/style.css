@@ -59,7 +59,11 @@ hr {
 }
 
 #update {
+    display: none;
+    border: 2px solid var(--accent-status);
+    border-radius: 3px;
     padding: 1em 1.5em;
+    margin-bottom: 0.5em;
 }
 
 header {
@@ -79,6 +83,18 @@ h1, h2 {
 
 #instructions {
     padding: 1em 1.5em;
+}
+
+#download-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 0 1.5em 0;
+}
+
+#get-ical {
+    margin: 0 auto;
+    padding: 0.5em 1em;
 }
 
 #status {
@@ -156,26 +172,6 @@ h1, h2 {
 .log-level-DEBUG {
     text-align: right;
     color: var(--accent-debug);
-}
-
-#download-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5em 0 1em 0;
-}
-
-#update {
-    display: none;
-    border: 2px solid var(--accent-status);
-    border-radius: 3px;
-    padding: 1em;
-    margin-bottom: 0.5em;
-}
-
-#get-ical {
-    margin: 0 auto;
-    padding: 0.5em 1em;
 }
 
 #footer {
