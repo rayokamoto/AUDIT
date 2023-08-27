@@ -15,9 +15,10 @@
 <body>
     <div id="extension-body">
         <div id="update"></div>
-        <h1 id="title">AUDIT - Timetable Downloader</h1>
-        <p>Convert your University of Adelaide timetable data into an iCal file that you can import into your calendars.</p>
-        <hr>
+        <header>
+            <h1 id="title">AUDIT - Timetable Downloader</h1>
+            <p>Convert your University of Adelaide timetable data into an iCal file that you can import into your calendars.</p>
+        </header>
 
         <div id="instructions">
             <h2>Instructions</h2>
@@ -35,12 +36,13 @@
             <hr>
             <div id="progress-box"></div>
             <div id="error-box"></div>
+            <hr>
             <div id="log-box">
-                <button id="download-logs">Download logs</button>
                 <details>
                     <summary>Logs</summary>
                     <div id="logs-panel"></div>
                 </details>
+                <button id="download-logs">Download logs</button>
             </div>
             <hr>
             <p>To import the iCal file into your calendars, follow the instructions: <a
@@ -50,6 +52,9 @@
 
         <div id="download-box">
             <button id="get-ical">Download iCal file</button>
+        </div>
+        <div id="footer">
+            <span>Version </span><span id="ver-text"></span>
         </div>
     </div>
 

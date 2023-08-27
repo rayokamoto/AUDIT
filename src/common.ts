@@ -25,6 +25,11 @@ export function toggleInitVis() {
   status.style.display = "block";
 }
 
+export function injectVersion(version: string) {
+  const verText = document.getElementById("ver-text")!;
+  verText.innerHTML = version;
+}
+
 export function checkPermissions() {
   if (typeof browser !== "undefined") {
     // Firefox
@@ -62,3 +67,23 @@ export function addProgress(text: string) {
   progressBox.innerHTML += `<div class="progress-item">${text}</div>`;
 }
 
+export function checkForNewVersion(currentVersion: string) {
+  fetch("https://api.github.com/repos/rayokamoto/AUDIT/releases/latest").then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      appendLog(logLevels.ERROR, "Failed to fetch latest release");
+      throw new Error("Failed to fetch latest release");
+    }
+  }).then((data) => {
+    const latestVersion = data.tag_name.replace("v", "");
+    const updateBox = document.getElementById("update")!;
+      if (latestVersion > currentVersion) {
+        appendLog(logLevels.INFO, `New version available: ${latestVersion}`);
+        updateBox.style.display = "block";
+        updateBox.innerHTML += `<a href = "https://github.com/repos/rayokamoto/AUDIT/releases/latest">New version available: ${latestVersion}. (Right click and open in a new tab)</a>`
+      }
+  }).catch((err) => {
+    appendLog(logLevels.ERROR, `Failed to check for new release: ${err}`);
+  });
+}

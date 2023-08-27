@@ -48,10 +48,10 @@ function addLogsToElement(logMessage: string, logTimestamp: string, logLevel: st
   const logTimestampElement = document.createElement("span");
   const logLevelElement = document.createElement("span");
   
-  log.setAttribute("id", "log");
-  logMessageElement.setAttribute("id", "log-message");
-  logTimestampElement.setAttribute("id", "log-timestamp");
-  logLevelElement.setAttribute("id", "log-level-${logLevel}");
+  log.setAttribute("class", "log");
+  logMessageElement.setAttribute("class", "log-message");
+  logTimestampElement.setAttribute("class", "log-timestamp");
+  logLevelElement.setAttribute("class", `log-level-${logLevel}`);
 
   logTimestampElement.innerText = logTimestamp;
   logMessageElement.innerText =logMessage;
