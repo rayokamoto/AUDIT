@@ -44,6 +44,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any }) {
 
   // Use this to calculate repeating times
   let endDate = new Date(Date.parse(endDateData));
+  endDate.setDate(endDate.getDate() + 1);
   appendLog(logLevels.DEBUG,`Creating event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; enddate: ${endDate}; clsType: ${classType}`);
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
