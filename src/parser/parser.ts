@@ -44,11 +44,11 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any }) {
 
   // Use this to calculate repeating times
   // The UNTIL parameter is non-inclusive, so set untilTime to midnight after the endDate to include the last event occurrence
-  let utilTime = new Date(new Date(endDateData).setHours(24, 0, 0, 0)); 
-  appendLog(logLevels.DEBUG,`Creating event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; untiltime: ${utilTime}; clsType: ${classType}`);
+  let untilTime = new Date(new Date(endDateData).setHours(24, 0, 0, 0)); 
+  appendLog(logLevels.DEBUG,`Creating event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; untilTime: ${untilTime}; clsType: ${classType}`);
   const repeatOptions: ICalRepeatingOptions = {
     freq: ICalEventRepeatingFreq.WEEKLY,
-    until: utilTime,
+    until: untilTime,
   };
 
   calendar.createEvent({
@@ -60,7 +60,7 @@ function createCalEvent(calendar: ICalCalendar, data: { [x: string]: any }) {
     repeating: repeatOptions,
   });
 
-  appendLog(logLevels.DEBUG,`Created event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; untiltime: ${utilTime}; clsType: ${classType}`)
+  appendLog(logLevels.DEBUG,`Created event: ${eventSummary} - start: ${eventStart}; end: ${eventEnd}; untilTime: ${untilTime}; clsType: ${classType}`)
 }
 
 export function createCalendar(
