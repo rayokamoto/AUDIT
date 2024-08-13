@@ -6,6 +6,14 @@ import shutil
 import subprocess
 import sys
 
+"""
+Firefox extension ID
+
+See https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#firefox_gecko_properties
+to see the extension ID format.
+"""
+FIREFOX_EXT_ID = "audit-extension@example.com"
+
 
 def build_chrome():
     subprocess.run("npm run build-chrome", shell=True)
@@ -26,6 +34,14 @@ def build_firefox():
         "npx tsc ./src/firefox/background/background.ts --outDir ./extension/firefox/background",
         shell=True,
     )
+
+    # Set the Firefox extension ID
+    with open("src/manifests/firefox/manifest.json", "r+") as f:
+        manifest = json.load(f)
+        f.seek(0)
+        manifest["browser_specific_settings"]["gecko"]["id"] = FIREFOX_EXT_ID
+        json.dump(manifest, f, indent=2)
+        f.truncate()
 
     shutil.copyfile(
         "src/manifests/firefox/manifest.json", "extension/firefox/manifest.json"
