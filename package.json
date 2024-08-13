@@ -1,6 +1,7 @@
 {
   "name": "audit",
   "version": "1.3.0",
+  "private": true,
   "description": "Automatically generate an iCal file for your University of Adelaide timetable",
   "license": "MPL-2.0",
   "type": "module",
